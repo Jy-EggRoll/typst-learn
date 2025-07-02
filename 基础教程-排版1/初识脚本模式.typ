@@ -66,3 +66,70 @@
 
 高端的理解：样式链，之后可以再研究
 
+#text(size: 12pt, [a word])#text(size: 24pt, [a word])
+
+#text(size: 2em, [test])
+
+#text(fill: rgb("526FFF"), [测试颜色])
+
+#text(fill: color.hsl(200deg, 100%, 70%), [天依蓝])
+
+#text(font: ("Noto Serif SC", "Microsoft YaHei"), [测试字体，采用了多级调节和回退特性])
+
+#set text(fill: yellow)
+
+此后，默认字体颜色就会被改为黄色
+
+#set text(fill: black)
+
+== 接下来是图像测试
+
+#image("图片目录/测试图片.png", width: 20%)
+
+#figure(image("图片目录/测试图片.png", width: 20%), caption: "这是描述文本")
+
+#figure(```py print("Hello")```, caption: [用于打印 Hello 的代码])
+
+== 行内盒子
+
+这是一段话，我要插入一个图片了#box(image("图片目录/测试图片.png", width: 10%))我调整了基线，但是似乎发生了奇怪的现象。
+
+好，但是现在输入起来就会有奇怪的水波，所以我回退了部分设置。
+
+== 链接
+
+#link("https://www.example.com")
+
+值得注意的是，Typst 会自动识别 HTTPS 和 HTTP 链接。
+
+https://www.example.com
+
+可以为链接指定显示名。<a>
+
+你将会看到#link("https://www.example.com", [这个])
+
+这和#link("https://www.example.com")[这个]是等价的
+
+其原理就在于函数调用时参数的位置，这是 Typst 的特性。
+
+=== 内链
+
+#link(<a>, [某个神秘的地方])
+
+== 表格基础
+
+#table(columns: 2, [第一个], [第二个], [第三个], [第四], align: center)
+
+== 习题
+
+1. 实现个性化 underline（用 underline 实现了 strike 的效果）
+
+#underline([吾辈楷模], offset: -0.3em, evade: false)
+
+2. 看不懂
+
+3. #text(size: 1em, [走])#text(size: 1.5 * 1em, [走])#text(size: 1.5 * 1.5em, [走])#text(size: 1.5 * 1.5 * 1.5em, [走])
+
+自此，基本知识已经基本掌握了，基本已经可以编写出比 Markdown 更加复杂的文档了。
+
+此外，在预览时直接就可以看到分页效果，这超过我目前接触过的所有 Markdown 工具。
