@@ -7,7 +7,7 @@
 #codly(zebra-fill: none)
 
 // 设定字体、文本语言、显示模式等
-#set text(font: "Microsoft YaHei", size: zh(4), lang: "zh", region: "cn")
+#set text(font: ("Maple Mono Normal NL NF", "Microsoft YaHei"), size: zh(4), lang: "zh", region: "cn")
 #set par(first-line-indent: (amount: 2em, all: true)) // 设置段落首行缩进 2 字符，强制启用所有，否则第一段不会缩进
 #set page(
   header: context [
@@ -22,7 +22,7 @@
       both: true,
     )
   ],
-  fill: rgb("#fdf8f1"),
+  fill: rgb("#E1E1DB"),
 )
 
 #let no-indent = h(-2em)

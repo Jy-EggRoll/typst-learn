@@ -15,14 +15,14 @@
     #set text(size: 0.7em)
   ],
   footer: context [
-    #set align(right)
+    #set align(center)
     #set text(size: 0.7em)
     #counter(page).display(
-      "1 / 1",
+      "第1页 / 共1页",
       both: true,
     )
   ],
-  fill: rgb("#fdf8f1"),
+  fill: rgb("#E1E1DB"),
 )
 
 #let no-indent = h(-2em)
@@ -60,13 +60,37 @@
 
 = 常量与变量
 
-自省函数的概念，虽然没太看懂。
+Typst 非常快，不仅是因为其编译器和解释器非常高效，更是因为语言的特性适合缓存的优化。
+
+本节将进一步学习 Typst 的特性，主要从常量和变量入手。
+
+== 代码表示的自省函数
+
+`#repr` 是一个「自省函数」（introspection function），可以帮你获得任意值的代码表示，很适合用来在调试代码的时候输出内容。
+
+例如：
+
+#repr([== 你好]) 是 ```#repr([== 你好])``` 的表示结果。
 
 == 类型的自省函数
+
+与 `#repr` 类似，一个特殊的函数 `#type` 可以获得任意值的「类型」（type）。所谓「类型」，就是这个值归属的分类。例如：
 
 #type(1)
 
 #type([一段内容])
+
+#type(6.11)
+
+#type("nihao")
+
+#type(true)
+
+#type(bool)
+
+一个值只会属于一种类型，因此，类型是可以比较的。
+
+#(int == int)
 
 #(1 == 1)
 
@@ -76,17 +100,23 @@
 
 #type(str)
 
-“类型的类型是类型”（str 的类型是 type）
+“类型的类型是类型”（str 的类型是 type，str 本身是一种类型）
 
-#type(true)
+#type(int)
 
 #type(true == true)
 
-== 求值函数 `eval`
+#type(type(int))
 
-`eval` 函数接受一个字符串，将其当作代码执行。
+可见，type 本身也是一种类型，目前先如此理解。
+
+== 求值函数
+
+`eval` 函数接受一个字符串（str 型），将其当作代码执行。目前，我并没有看出该函数有什么显著的作用。
 
 #eval("1 + 1")
+
+当直接向 `eval` 传入一个由 [] 包裹的内容时，将会报错。原因是，`eval` 是 content 型。
 
 #type(eval("1 + 1"))
 
@@ -100,43 +130,43 @@
 
 #eval("[一段内容]", mode: "markup") // 这是以标记模式解释内容
 
+下面简单测试一下，当以标记模式解释内容时，会发生什么情况。
+
+#eval("*强调*", mode: "markup")
+
+我自行设定的 \*\* 样式被错误地渲染了，这可能是 eval 函数的一个问题。
+
+我注意到，在给出的提示中，mode 参数还有 math 可以选择，不难理解，下面立即测试。
+
+#eval("2^64", mode: "math")
+
+成功了，完全是我预期的效果。
+
 == 基本字面量
 
-- 空字面量
-- 布尔字面量
-- 整数字面量
-- 浮点数字面量
-- 字符串字面量
+本小节我们将具体介绍所有基本字面量，这是脚本的“一加一”。其实在上一节，我们已经见过了一部分字面量，但皆凭直觉使用：1 不就是数字吗，那么在 Typst 中，它就是数字。（PS：与之相对，TeX 根本没有数字和字符串的概念。）
 
-`repr` 函数接受任意值，返回其代码表示。
+如果你学过 Python 等语言，那么这将对你来说不是问题。在Typst中，常用的字面量并不多，它们是：
 
-#repr(1)
+1. 「空字面量」（none literal）
+2. 「布尔字面量」（boolean literal）
+3. 「整数字面量」（integer literal）
+4. 「浮点数字面量」（floating-point literal）
+5. 「字符串字面量」（string literal）
 
-#repr([一段内容])
+=== 空字面量
 
-#repr("一段内容")
-
-#repr([*好*])
-
-#repr((0, 1).find((_) => false))
-
-#repr((0, 1).find((_) => true))
-
-看不懂啊，这什么意思......
-
-看不懂啊，这什么意思……
-
-看起来渲染效果是一致的。
-
-#type(none == type(none))
+查找元素的例子目前太过高深，难以掌握，先从简单的例子入手。先来看看 none 的类型是什么？
 
 #type(none)
 
-#(none == type(none))
-
-#type(none)
+该输出没有见过，这是什么？对该值再执行 type 检查。
 
 #type(type(none))
+
+可见，这是一种类型。none 值的类型是 type(none)，也就是 none 类型。可见，none 值和 none 类型不等价。我们对两个值进行简单的判断，输出如下。
+
+#(none == type(none))
 
 假设 #false 是布尔字面量。
 
