@@ -5,7 +5,36 @@
 
 #set text(font: "Microsoft YaHei", size: 14pt)
 
+#show heading.where(depth: 1): content => {
+  align(center, text(fill: rgb("bf6a6a"), content.body, size: 2.2em))
+}
+
+#show heading.where(depth: 2): content => {
+  pagebreak()
+  align(center, text(fill: rgb("d08770"), content.body, size: 2em))
+}
+
+#show heading.where(depth: 3): content => {
+  align(center, text(fill: rgb("ebcb8b"), content.body, size: 1.8em))
+}
+
+#show heading.where(depth: 4): content => {
+  align(center, text(fill: rgb("a3be8c"), content.body, size: 1.6em))
+}
+
+#show heading.where(depth: 5): content => {
+  align(center, text(fill: rgb("5e81ac"), content.body, size: 1.4em))
+}
+
+#show heading.where(depth: 6): content => {
+  align(center, text(fill: rgb("b48ead"), content.body, size: 1.2em))
+}
+
+#v(1fr)
+
 = 初识脚本模式
+
+#v(1fr)
 
 #strong[
   从前有座山

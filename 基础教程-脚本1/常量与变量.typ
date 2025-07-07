@@ -1,4 +1,62 @@
-#set text(font: "Microsoft YaHei", size: 14pt)
+#import "@preview/pointless-size:0.1.1": zh // 引入中文字号转化
+
+// 美化代码块
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.1": *
+#show: codly-init.with()
+#codly(zebra-fill: none)
+
+// 设定字体、文本语言、显示模式等
+#set text(font: "Microsoft YaHei", size: zh(4), lang: "zh", region: "cn")
+#set par(first-line-indent: (amount: 2em, all: true)) // 设置段落首行缩进 2 字符，强制启用所有，否则第一段不会缩进
+#set page(
+  header: context [
+    #set align(center)
+    #set text(size: 0.7em)
+  ],
+  footer: context [
+    #set align(right)
+    #set text(size: 0.7em)
+    #counter(page).display(
+      "1 / 1",
+      both: true,
+    )
+  ],
+  fill: rgb("#fdf8f1"),
+)
+
+#let no-indent = h(-2em)
+
+#show strong: content => {
+  show regex("\p{Hani}"): it => box(place(text("·", size: 1em), dx: 0.4em, dy: 0.75em) + it)
+  content.body
+}
+
+#show heading.where(depth: 1): content => {
+  align(center, text(fill: rgb("bf6a6a"), content.body, size: 1.8em))
+}
+
+#show heading.where(depth: 2): content => {
+  pagebreak()
+  align(center, text(fill: rgb("d08770"), content.body, size: 1.7em))
+}
+
+#show heading.where(depth: 3): content => {
+  align(center, text(fill: rgb("ebcb8b"), content.body, size: 1.6em))
+}
+
+#show heading.where(depth: 4): content => {
+  align(center, text(fill: rgb("a3be8c"), content.body, size: 1.5em))
+}
+
+#show heading.where(depth: 5): content => {
+  align(center, text(fill: rgb("5e81ac"), content.body, size: 1.4em))
+}
+
+#show heading.where(depth: 6): content => {
+  align(center, text(fill: rgb("b48ead"), content.body, size: 1.3em))
+}
+
 
 = 常量与变量
 
@@ -149,3 +207,62 @@ return
 
 === 类型转换
 
+没什么好说的，和其他语言差不多。
+
+=== 浮点数陷阱
+
+#type(2)
+
+#type(2.)
+
+#(type(2.) == int)
+
+#type(200000000000000000000)
+
+当数字足够大时，类型将变为 `float`。
+
+#(10 / 4)
+
+#type(10 / 4)
+
+Typst 默认执行标准除法。
+
+== 变量声明
+
+#let x = "Hello, world!"
+
+#x
+
+== 函数声明
+
+#let f(x, y) = [两个值 #x 和 #y 相加的值是 #(x + y)]
+
+#f(1, 2)
+
+== 习题
+
+1. 计算
+
+#calc.pow(2, 32)
+
+2. 输出诗句（用最多 17 个汉字输出 28 字的诗句）
+
+#let x = [一]
+
+#let y = [渔]
+
+#(x)帆#(x)桨#(x)#(y)舟，#(x)个#(y)翁#(x)钓钩。
+
+#(x)俯#(x)仰#(x)场笑，#(x)江明月#(x)江秋。
+
+用了 16 个汉字。
+
+3. 计算斐波那契数列
+
+这个确实不会了，日后再看吧。
+
+4. 矩阵输出
+
+也有点难度，可能要用到变长参数。
+
+目前是很难掌握的。我主要需要了解一些排版样式方面的内容，涉及脚本逻辑的可以往后靠。

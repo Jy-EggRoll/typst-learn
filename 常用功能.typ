@@ -13,12 +13,10 @@
   header: context [
     #set align(center)
     #set text(size: 0.7em)
-    页眉：速成练习
   ],
   footer: context [
     #set align(right)
     #set text(size: 0.7em)
-    页脚：
     #counter(page).display(
       "1 / 1",
       both: true,
@@ -27,13 +25,37 @@
   fill: rgb("#fdf8f1"),
 )
 
-#import "@preview/numbly:0.1.0": numbly
-#set heading(numbering: numbly(
-  "第{1}章",
-  "第{1}.{2}节",
-))
-
 #let no-indent = h(-2em)
+
+#show strong: content => {
+  show regex("\p{Hani}"): it => box(place(text("·", size: 1em), dx: 0.4em, dy: 0.75em) + it)
+  content.body
+}
+
+#show heading.where(depth: 1): content => {
+  align(center, text(fill: rgb("bf6a6a"), content.body, size: 1.8em))
+}
+
+#show heading.where(depth: 2): content => {
+  pagebreak()
+  align(center, text(fill: rgb("d08770"), content.body, size: 1.7em))
+}
+
+#show heading.where(depth: 3): content => {
+  align(center, text(fill: rgb("ebcb8b"), content.body, size: 1.6em))
+}
+
+#show heading.where(depth: 4): content => {
+  align(center, text(fill: rgb("a3be8c"), content.body, size: 1.5em))
+}
+
+#show heading.where(depth: 5): content => {
+  align(center, text(fill: rgb("5e81ac"), content.body, size: 1.4em))
+}
+
+#show heading.where(depth: 6): content => {
+  align(center, text(fill: rgb("b48ead"), content.body, size: 1.3em))
+} 
 
 // 下面开始正文
 
@@ -60,10 +82,6 @@
 ===== hao
 
 ====== hao
-
-======= hao
-
-======== hao
 
 目前的字体目录使用环境变量实现，之后更换电脑需要配置 `TYPST_FONT_PATHS` 环境变量。
 
