@@ -15,14 +15,14 @@
     #set text(size: 0.7em)
   ],
   footer: context [
-    #set align(right)
+    #set align(center)
     #set text(size: 0.7em)
     #counter(page).display(
-      "1 / 1",
+      "第1页 / 共1页",
       both: true,
     )
   ],
-  fill: rgb("#fdf8f1"),
+  fill: rgb("#FAFAFA"),
 )
 
 #let no-indent = h(-2em)
@@ -42,7 +42,7 @@
 }
 
 #show heading.where(depth: 3): content => {
-  align(center, text(fill: rgb("ebcb8b"), content.body, size: 1.6em))
+  align(center, text(fill: rgb("#ab9364"), content.body, size: 1.6em))
 }
 
 #show heading.where(depth: 4): content => {
@@ -55,7 +55,7 @@
 
 #show heading.where(depth: 6): content => {
   align(center, text(fill: rgb("b48ead"), content.body, size: 1.3em))
-} 
+}
 
 // 下面开始正文
 
